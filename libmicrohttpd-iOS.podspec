@@ -5,11 +5,11 @@ Pod::Spec.new do |spec|
   spec.authors = "The libmicrohttpd Authors"
   spec.license = "LGPL"
 
-  spec.version = "0.9.50.0"
+  spec.version = "0.9.50.1"
   spec.source = { :http => 'https://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.9.50.tar.gz' }
 
   spec.platform = :ios
-  spec.ios.deployment_target = '9.0'
+  spec.ios.deployment_target = '8.0'
 
   spec.prepare_command = <<-CMD
     build_for_ios() {
