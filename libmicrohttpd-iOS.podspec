@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
   spec.authors = "The libmicrohttpd Authors"
   spec.license = "LGPL"
 
-  spec.version = "0.9.50.1"
+  spec.version = "0.9.50.2"
   spec.source = { :http => 'https://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.9.50.tar.gz' }
 
   spec.platform = :ios
@@ -40,7 +40,7 @@ Pod::Spec.new do |spec|
         RANLIB=`xcrun -sdk $PLATFORM -find ranlib` \
         STRIP=`xcrun -sdk $PLATFORM -find strip` \
         CPPFLAGS="-arch $ARCH -isysroot $SDKPATH" \
-        LDFLAGS="-arch $ARCH" \
+        LDFLAGS="-arch $ARCH -headerpad_max_install_names" \
         --host=$HOST \
         --prefix=$PREFIX \
         --quiet --enable-silent-rules
@@ -49,13 +49,14 @@ Pod::Spec.new do |spec|
     }
 
     create_universal_library() {
-      lipo -create -output $(pwd)/build/libmicrohttpd.dylib \
-        $(pwd)/build/{armv7,arm64,i386,x86_64}/lib/libmicrohttpd.dylib
+      lipo -create -output libmicrohttpd.dylib \
+        build/{armv7,arm64,i386,x86_64}/lib/libmicrohttpd.dylib
+      install_name_tool -id "$(pwd)/libmicrohttpd.dylib" libmicrohttpd.dylib
     }
 
     build_for_ios
   CMD
 
   spec.source_files = "src/include/*.h"
-  spec.ios.vendored_libraries = "build/libmicrohttpd.dylib"
+  spec.ios.vendored_libraries = "libmicrohttpd.dylib"
 end
