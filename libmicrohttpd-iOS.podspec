@@ -5,7 +5,7 @@ Pod::Spec.new do |spec|
   spec.authors = "The libmicrohttpd Authors"
   spec.license = "LGPL"
 
-  spec.version = "0.9.50.2"
+  spec.version = "0.9.50.3"
   spec.source = { :http => 'https://ftp.gnu.org/gnu/libmicrohttpd/libmicrohttpd-0.9.50.tar.gz' }
 
   spec.platform = :ios
@@ -51,7 +51,7 @@ Pod::Spec.new do |spec|
     create_universal_library() {
       lipo -create -output libmicrohttpd.dylib \
         build/{armv7,arm64,i386,x86_64}/lib/libmicrohttpd.dylib
-      install_name_tool -id "$(pwd)/libmicrohttpd.dylib" libmicrohttpd.dylib
+      install_name_tool -id "@rpath/libmicrohttpd.dylib" libmicrohttpd.dylib
     }
 
     build_for_ios
